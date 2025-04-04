@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Purchase Courses</title>
     <link style="text/css" rel="stylesheet" href="css/global.css">
-    <script src="./js/utils.js"></script>
+    <script src="./scripts/utils.js"></script>
     <style>
         .purchase-container {
             position: relative;
@@ -108,7 +108,7 @@
         <button class="refund-btn" id="refundBtn" onclick="handleRefund()">Request Refund</button>
         <button class="purchase-btn" onclick="handlePurchase()">Purchase Selected Courses</button>
     </div>
-    <script src="js/utils.js"></script>
+    <script src="scripts/utils.js"></script>
     <script>
 
         async function renderCourses(data) {

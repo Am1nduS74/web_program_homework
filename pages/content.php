@@ -100,7 +100,7 @@ if ($next_chapter % 7 == 0) {
         </div>
     </div>
 
-    <script src="js/utils.js"></script>
+    <script src="scripts/utils.js"></script>
     <script>
 
         document.addEventListener('DOMContentLoaded', () => {

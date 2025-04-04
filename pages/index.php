@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Assimil Course Home</title>
     <link style="text/css" rel="stylesheet" href="css/global.css">
-    <script src="./js/utils.js"></script>
+    <script src="./scripts/utils.js"></script>
     <style>
 
         body {

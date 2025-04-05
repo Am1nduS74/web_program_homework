@@ -8,108 +8,108 @@
     <script src="./scripts/utils.js"></script>
     <style>
 
-        body {
-            max-width: 800px;
+        body { 
+            max-width: 800px; /* Center the content */
         }
 
 
         #auth-bar {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 1000;
+            position: fixed; /* Fixed position for the auth bar */
+            top: 1.5rem; /* Position from the top */
+            right: 1.5rem; /* Position from the right */
+            z-index: 1000; /* Ensure it stays on top of other elements */
         }
 
         #auth-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
+            background: #3498db; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            padding: 0.8rem 1.5rem; /* Padding for the button */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: all 0.3s ease; /* Smooth transition for hover effect */
+            font-size: 1rem; /* Font size */
         }
 
         #auth-btn:hover {
-            background: #2980b9;
-            transform: translateY(-1px);
+            background: #2980b9; /* Darker shade on hover */
+            transform: translateY(-1px); /* Slight lift effect */
         }
 
         h1 {
-            margin: 3rem 0 0;
-            letter-spacing: -0.5px;
+            margin: 3rem 0 0; /* Margin for the title */
+            letter-spacing: -0.5px; /* Letter spacing for the title */
         }
 
         #course-container {
-            margin: 2rem 0;
+            margin: 2rem 0; /* Margin for the course container */
         }
 
         .course-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            list-style: none; /* Remove default list style */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
         }
 
         .course-item {
-            background: white;
-            border-radius: 8px;
-            margin: 1rem 0;
-            padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: white; /* Background color for course items */
+            border-radius: 8px; /* Rounded corners */
+            margin: 1rem 0; /* Margin between items */
+            padding: 1.5rem; /* Padding for items */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for hover effect */
         }
 
         .course-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px); /* Lift effect on hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
         }
 
         .course-link {
-            text-decoration: none;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            text-decoration: none; /* Remove underline from links */
+            color: #2c3e50; /* Text color */
+            display: flex; /* Flexbox for alignment */
+            align-items: center; /* Center items vertically */
+            justify-content: space-between; /* Space between items */
         }
 
         .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #7f8c8d;
-            font-size: 1.1rem;
+            text-align: center; /* Center text */
+            padding: 2rem; /* Padding for loading text */
+            color: #7f8c8d; /* Loading text color */
+            font-size: 1.1rem; /* Font size for loading text */
         }
 
         .error {
-            background: #fff5f5;
-            border: 1px solid #ff4444;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            text-align: center;
+            background: #fff5f5; /* Light red background for error */
+            border: 1px solid #ff4444; /* Red border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 1.5rem; /* Padding for error message */
+            margin: 2rem 0; /* Margin for error message */
+            text-align: center; /* Center text */
         }
 
         .error button {
-            margin-top: 1rem;
-            padding: 0.5rem 1.5rem;
+            margin-top: 1rem; /* Margin for button */
+            padding: 0.5rem 1.5rem; /* Padding for button */
         }
 
         #search-input {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 1rem 0 2rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            text-align: center;
+            width: 100%; /* Full width */
+            padding: 0.8rem; /* Padding for input */
+            margin: 1rem 0 2rem; /* Margin for input */
+            border: 1px solid #ddd; /* Light gray border */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 1rem; /* Font size */
+            box-sizing: border-box; /* Include padding in width calculation */
+            transition: all 0.3s ease; /* Smooth transition for focus effect */
+            text-align: center; /* Center text */
         }
 
         #search-input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            outline: none; /* Remove default outline */
+            border-color: #3498db; /* Blue border on focus */
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); /* Light blue shadow on focus */
         }
     </style>
 </head>

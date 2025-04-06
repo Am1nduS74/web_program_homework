@@ -1,4 +1,4 @@
-async function loadCourses() {
+async function loadCourses() { // Fetches the list of courses from the server
     try {
         const headers = {};
         const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ async function loadCourses() {
     }
 }
 
-function playChapter(chapter) {
+function playChapter(chapter) { // Plays the audio for the specified chapter
     const btn = document.getElementById(`play-${chapter}`);
     const audioFile = `./src/${chapter}.mp3`;
     

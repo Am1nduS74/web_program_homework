@@ -1,39 +1,41 @@
 <?php
-require_once __DIR__ . '/../utils/db.php';
-require_once __DIR__ . '/../utils/tools.php';
+require_once __DIR__ . '/../utils/db.php'; // Include the database connection file
+require_once __DIR__ . '/../utils/tools.php'; // Include utility functions for error handling and data validation
 
 
 
 
-function purchaseAdd() {
-    global $db;
+function purchaseAdd() { // Function to add purchases to the database
+    global $db; // Use the global database connection
     $userId = $_SERVER['AUTH_USER_ID'];
     $data = getJsonData();
 
     
-    check_required_fields($data, ['course_ids']);
+    check_required_fields($data, ['course_ids']); // Check if the required fields are present in the request data
     
     if (!is_array($data['course_ids']) || empty($data['course_ids'])) {
         throw new Exception('Invalid course_ids format', 400);
     }
 
     try {
-        $db->beginTransaction();
+        $db->beginTransaction(); 
         
-        $stmt = $db->prepare("
+        // Prepare the SQL statement to insert purchases
+        $stmt = $db->prepare(" 
             INSERT INTO purchases (user_id, course_id) 
             VALUES (:user_id, :course_id)
             ON CONFLICT(user_id, course_id) DO NOTHING
         ");
 
         foreach ($data['course_ids'] as $courseId) {
+            // Validate course ID
             $stmt->execute([
                 ':user_id' => $userId,
                 ':course_id' => (int)$courseId
             ]);
         }
 
-        $db->commit();
+        $db->commit(); // Commit the transaction
 
         echo json_encode([
             'code' => 200,
@@ -51,15 +53,15 @@ function purchaseAdd() {
     }
 }
 
-function purchaseRemove() {
+function purchaseRemove() { // Function to remove purchases from the database
     global $db;
     $userId = $_SERVER['AUTH_USER_ID'];
     $data = getJsonData();
 
     
-    check_required_fields($data, ['course_ids']);
+    check_required_fields($data, ['course_ids']); // Check if the required fields are present in the request data
     
-    if (!is_array($data['course_ids']) || empty($data['course_ids'])) {
+    if (!is_array($data['course_ids']) || empty($data['course_ids'])) { // Validate course IDs
         throw new Exception('Invalid course_ids format', 400);
     }
 
@@ -67,7 +69,7 @@ function purchaseRemove() {
         $db->beginTransaction();
 
         
-        $placeholders = implode(',', array_fill(0, count($data['course_ids']), '?'));
+        $placeholders = implode(',', array_fill(0, count($data['course_ids']), '?')); // Create placeholders for the SQL query
         $stmt = $db->prepare("
             DELETE FROM purchases 
             WHERE user_id = ? 
@@ -102,7 +104,7 @@ function purchaseRemove() {
     }
 }
 
-function purchaseValidate()
+function purchaseValidate() // Function to validate if a course is purchased or free
 {
     global $db;
     global $db;
@@ -134,7 +136,7 @@ function purchaseValidate()
     }
 }
 
-function listAllCourses()
+function listAllCourses() // Function to list all courses
 {
     global $db;
     if ($_SERVER['HTTP_AUTHORIZATION']){
@@ -143,7 +145,7 @@ function listAllCourses()
     $userId = $_SERVER['AUTH_USER_ID'] ?? 0;
 
     try {
-        if ($userId) {
+        if ($userId) { 
             $query = "SELECT c.course_id, 
                     CASE WHEN p.user_id IS NOT NULL THEN 2 WHEN c.free = 1 THEN 1 ELSE 0 END AS status 
                   FROM courses c 

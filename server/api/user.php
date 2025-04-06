@@ -1,13 +1,13 @@
 <?php
 
-require __DIR__ . '../../../vendor/autoload.php';
+require __DIR__ . '../../../vendor/autoload.php'; // Include the Composer autoloader for Firebase JWT
 define('JWT_SECRET', 'your-256-bit-secret');
-define('JWT_ALGORITHM', 'HS256');
+define('JWT_ALGORITHM', 'HS256'); 
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use Firebase\JWT\JWT; // Use the Firebase JWT library for encoding and decoding JWT tokens
+use Firebase\JWT\Key; // Use the Key class for key management
 
-function generateToken($userId)
+function generateToken($userId) // This function generate a JWT token
 {
     $issuedAt = time();
     $expire = $issuedAt + 6000; 
@@ -22,10 +22,10 @@ function generateToken($userId)
     return JWT::encode($payload, JWT_SECRET, JWT_ALGORITHM);
 }
 
-function validateToken()
+function validateToken() // This function validate the JWT token
 {
     
-    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? ''; // Get the Authorization header from the request
 
     
     if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
@@ -58,7 +58,7 @@ function validateToken()
     }
 }
 
-function authentication(callable $handler)
+function authentication(callable $handler) // This function is a middleware for authentication
 {
     return function () use ($handler) {
         try {
@@ -76,13 +76,13 @@ function authentication(callable $handler)
 }
 
 
-function handleRegister()
+function handleRegister() // Thus function handles the user registration process
 {
     global $db;
     $data = getJsonData();
 
     
-    $requiredFields = ['username', 'password', 'email', 'phone'];
+    $requiredFields = ['username', 'password', 'email', 'phone']; // Required fields for registration
     foreach ($requiredFields as $field) {
         if (empty($data[$field])) {
             sendJsonError("Missing required field: $field", 400);
@@ -90,7 +90,7 @@ function handleRegister()
     }
 
     try {
-        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT); // Hash the password using bcrypt
 
         
         $stmt = $db->prepare("
@@ -137,7 +137,7 @@ function handleRegister()
 }
 
 
-function handleLogin()
+function handleLogin() // This function handles the user login process
 {
     global $db;
     $data = getJsonData();
@@ -165,7 +165,7 @@ function handleLogin()
 }
 
 
-function handleUserInfo()
+function handleUserInfo() // This function retrieves the user information based on the provided user ID
 {
     global $db;
     $user_id = $_SERVER['AUTH_USER_ID'] ?? null;

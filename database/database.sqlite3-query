@@ -1,11 +1,11 @@
 -- sqlite3 ./database.sqlite < ./database.sqlite3-query
 PRAGMA foreign_keys = ON;
 
-DROP TABLE users;
-DROP TABLE purchases;
-DROP VIEW courses;
+DROP TABLE users; -- Drop the users table if it exists
+DROP TABLE purchases; -- Drop the purchases table if it exists
+DROP VIEW courses; -- Drop the courses view if it exists
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS users ( -- Create the users table if it doesn't exist
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at DATETIME DEFAULT (datetime('now','localtime'))
 );
 
-CREATE TABLE purchases (
+CREATE TABLE purchases ( -- Create the purchases table if it doesn't exist
     user_id INTEGER NOT NULL,
     course_id INTEGER NOT NULL, 
     purchased_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -23,7 +23,7 @@ CREATE TABLE purchases (
     FOREIGN KEY(course_id) REFERENCES courses(course_id),
     CONSTRAINT unique_user_course UNIQUE (user_id, course_id)
 );
-
+-- Create the courses view if it doesn't exist
 CREATE VIEW courses AS
 SELECT CAST(id AS INTEGER) AS course_id, 
        GROUP_CONCAT(id) AS ids,

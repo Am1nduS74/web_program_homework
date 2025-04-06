@@ -1,15 +1,15 @@
 <?php
 
 
-function getJsonData() {
-    $data = json_decode(file_get_contents('php://input'), true);
+function getJsonData() { // Function to get JSON data from the request body
+    $data = json_decode(file_get_contents('php://input'), true); 
     if (json_last_error() !== JSON_ERROR_NONE) {
         sendJsonError('Invalid JSON', 400);
     }
     return $data;
 }
 
-function json_response($code, $message, $data = null) {
+function json_response($code, $message, $data = null) { // Function to send a JSON response
     header("Content-Type: application/json");
     $response = [
         'code' => $code,
@@ -22,7 +22,7 @@ function json_response($code, $message, $data = null) {
     exit;
 }
 
-function check_required_fields($data, $fields) {
+function check_required_fields($data, $fields) { // Function to check if required fields are present in the request data
     foreach ($fields as $field) {
         if (!isset($data[$field])) {
             json_response(400, "Missing $field");
@@ -30,7 +30,7 @@ function check_required_fields($data, $fields) {
     }
 }
 
-function sendJsonError($message, $code = 400) {
+function sendJsonError($message, $code = 400) { // Function to send a JSON error response
     http_response_code($code);
     header('Content-Type: application/json');
     echo json_encode([

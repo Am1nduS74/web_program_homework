@@ -71,7 +71,7 @@ if ($next_chapter % 7 == 0) {
                            pointer; transition: color 0.2s ease;"> Assimil French Home</h1>
             </a>
 
-            <?php if ($course_id < 21): ?>
+            <?php if ($course_id < 21): ?> <
                 <a href="content.php?course_id=<?= $next_chapter ?>">>></a>
             <?php else: ?>
                 <span style="color: #bdc3c7;">>></span>
@@ -81,20 +81,20 @@ if ($next_chapter % 7 == 0) {
         <div class="chapter">
             <div class="chapter-header">
                 <h2>Chapter <?= $course_id ?></h2>
-                <button id="play-<?= $course_id ?>" class="play-btn" onclick="playChapter(<?= $course_id ?>)"></button>
+                <button id="play-<?= $course_id ?>" class="play-btn" onclick="playChapter(<?= $course_id ?>)"></button> <!-- Play button for the chapter -->
             </div>
 
-            <div id="purchase-prompt" class="hidden">
+            <div id="purchase-prompt" class="hidden"> <!-- This will be only show if the chapter is not purchased -->
                 <div id="validation-loading">Checking access...</div>
                 <h3>This course needs to be purchased before viewing</h3>
                 <p>You have not purchased the content of Chapter <?= $course_id ?></p>
                 <button class="purchase-btn" onclick="window.location.href = 'purchase.php';">Purchase Now!</button>
             </div>
             <div id="content-body" class="hidden">
-            <?php foreach ($verses as $verse): ?>
+            <?php foreach ($verses as $verse): ?> <!-- Loop through each verse in the course content -->
                 <div class="verse">
-                    <span class="verse-id">§<?= htmlspecialchars($verse['id']) ?></span>
-                    <div class="text-container">
+                    <span class="verse-id">§<?= htmlspecialchars($verse['id']) ?></span> 
+                    <div class="text-container"> 
                         <span class="french-text"><?= htmlspecialchars($verse['french']) ?></span>
                         <span class="english-text"><?= htmlspecialchars($verse['english']) ?></span>
                     </div>

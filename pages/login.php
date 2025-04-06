@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
     $action = $_POST['action'] ?? ''; 
 
 
-    $apiMap = [ 
+    $apiMap = [  // Map the action to the API endpoint
         'login' => '/api/user/login',
         'register' => '/api/user/register'
     ];
 
-    if (isset($apiMap[$action])) { 
+    if (isset($apiMap[$action])) {  
         $postData = [
             'username' => $_POST['username'], 
             'password' => $_POST['password']
@@ -126,21 +126,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
             background: rgb(36, 148, 79); /* Primary color */
             color: white;   /* Text color */
             padding: 1rem 2rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
             font-size: 1rem;
             width: 100%;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease; /* Smooth transition for hover effect */
         }
 
         button[type="submit"]:hover {
-            background: #000000;
+            background: #000000; /* Darker on hover */
         }
 
         .validation-message,
         .error-message {
-            color: #ff4444;
+            color: #ff4444; /* Red color for error messages */
             margin: 1rem 0;
             text-align: center;
         }
@@ -148,12 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
         .error-message {
             font-size: 0.9rem;
             margin-top: 0.5rem;
-            display: none;
-            text-align: left;
+            display: none; /* Hide by default*/
+            text-align: left; /* Align text to the left */
         }
 
         .error-message.show {
-            display: block;
+            display: block; /* Show when there is an error */
         }
 
         input.invalid {
@@ -164,19 +164,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
 
 <body>
         <div class="auth-container">
-            <div class="close-btn" onclick="window.location.href='/'">×</div>
+            <div class="close-btn" onclick="window.location.href='/'">×</div> <!-- Close button to redirect to home page -->
             <div class="validation-message"></div>
 
-            <div class="tab-controls">
+            <div class="tab-controls"> <!-- Login or signup tabs -->
                 <button onclick="showForm('login')" class="active">Login</button>
                 <button onclick="showForm('register')">Sign Up</button>
             </div>
         
         <!-- login form -->
-        <form id="loginForm" method="post" style="display: block;">
+        <form id="loginForm" method="post" style="display: block;"> 
             <div class="form-group">
                 <label>Username:</label>
-                <input type="text" name="username">
+                <input type="text" name="username"> 
                 <div class="error-message" data-error="username"></div>
             </div>
             <div class="form-group">
@@ -227,9 +227,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
 
     <script>
 
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const validationMessage = document.querySelector('.validation-message');
+        const loginForm = document.getElementById('loginForm'); // Get the login form element
+        const registerForm = document.getElementById('registerForm'); // Get the register form element
+        const validationMessage = document.querySelector('.validation-message'); 
         const validationRules = {
             login: {
                 username: value => value.trim().length >= 3 || 'Username must be at least 3 characters',
@@ -251,14 +251,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
         };
 
 
-        function handleSubmit(formType, e) {
+        function handleSubmit(formType, e) { // Handle form submission
             e.preventDefault();
             const form = e.target;
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             let isValid = true;
 
-            form.querySelectorAll('.error-message').forEach(el => {
+            form.querySelectorAll('.error-message').forEach(el => { 
                 el.classList.remove('show');
             });
             form.querySelectorAll('input').forEach(input => {
@@ -281,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
                 }
             }
 
-            if (isValid) {
+            if (isValid) { // If all fields are valid, send the data to the server
                 const apiPath = formType === 'login' ? '/api/user/login' : '/api/user/register';
                 fetch(apiPath, {
                     method: 'POST',
@@ -310,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
             }
         }
 
-        function showForm(formType) {
+        function showForm(formType) { // Show the selected form (login or register)
             
             const buttons = document.querySelectorAll('.tab-controls > button');
 
@@ -327,13 +327,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
             validationMessage.innerHTML = '';
         }
 
-        function showGlobalError(message) {
+        function showGlobalError(message) { // Show a global error message
             validationMessage.innerHTML = `<p>${message}</p>`;
         }
 
 
-        loginForm.addEventListener('submit', e => handleSubmit('login', e));
-        registerForm.addEventListener('submit', e => handleSubmit('register', e));
+        loginForm.addEventListener('submit', e => handleSubmit('login', e)); // Add event listener for login form submission
+        registerForm.addEventListener('submit', e => handleSubmit('register', e)); // Add event listener for register 
 
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('input', function () {
@@ -341,7 +341,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
                 const field = this.name;
                 const rule = validationRules[formType][field];
 
-                if (rule) {
+                if (rule) { 
                     const errorEl = this.closest('.form-group').querySelector('.error-message');
                     const formData = new FormData(this.closest('form'));
                     const data = Object.fromEntries(formData.entries());

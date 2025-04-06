@@ -5,40 +5,43 @@
     <meta charset="UTF-8">
     <title>Assimil Course Home</title>
     <link style="text/css" rel="stylesheet" href="css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
     <script src="./scripts/utils.js"></script>
     <style>
 
         body { 
-            max-width: 800px; /* Center the content */
+            max-width: 800px; /* This centers the content */
         }
 
 
         #auth-bar {
             position: fixed; /* Fixed position for the auth bar */
-            top: 1.5rem; /* Position from the top */
-            right: 1.5rem; /* Position from the right */
-            z-index: 1000; /* Ensure it stays on top of other elements */
+            top: 1.5rem; 
+            right: 1.5rem; 
+            z-index: 1000; /* Make sure it stays on top of other elements */
         }
 
         #auth-btn {
-            background: #3498db; /* Button color */
+            background:rgb(36, 148, 79); /* Button color */
             color: white; /* Text color */
             border: none; /* No border */
             padding: 0.8rem 1.5rem; /* Padding for the button */
             border-radius: 4px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor on hover */
+            cursor: pointer; /* Cursor become a pointer when hovering */
             transition: all 0.3s ease; /* Smooth transition for hover effect */
-            font-size: 1rem; /* Font size */
+            font-size: 1rem; 
         }
 
         #auth-btn:hover {
-            background: #2980b9; /* Darker shade on hover */
-            transform: translateY(-1px); /* Slight lift effect */
+            background: #000000; /* Darker when hovering */
+            transform: translateY(-1px); /* Slight movement effect in the auth button */
         }
 
         h1 {
             margin: 3rem 0 0; /* Margin for the title */
-            letter-spacing: -0.5px; /* Letter spacing for the title */
+            letter-spacing: -0.5px; /* Letter spacing*/
+            color: #008000;
         }
 
         #course-container {
@@ -46,23 +49,25 @@
         }
 
         .course-list {
-            list-style: none; /* Remove default list style */
-            padding: 0; /* Remove default padding */
-            margin: 0; /* Remove default margin */
+            list-style: none; /* Remove the default list style */
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
         }
 
         .course-item {
-            background: white; /* Background color for course items */
+            background: white; /* Background color */
             border-radius: 8px; /* Rounded corners */
             margin: 1rem 0; /* Margin between items */
             padding: 1.5rem; /* Padding for items */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for hover effect */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition when hovering*/
         }
 
         .course-item:hover {
+            background: #f9f9f9; /* Light gray background on hover */
+            border: 1px solid #008000; /* Blue border on hover */
             transform: translateY(-2px); /* Lift effect on hover */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow when hovering */
         }
 
         .course-link {
@@ -108,7 +113,7 @@
 
         #search-input:focus {
             outline: none; /* Remove default outline */
-            border-color: #3498db; /* Blue border on focus */
+            border-color: #008000; /* Blue border on focus */
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1); /* Light blue shadow on focus */
         }
     </style>
@@ -128,23 +133,23 @@
     </div>
 
     <script>
-        function checkLoginStatus() {
-            const token = localStorage.getItem('token');
-            const authBtn = document.getElementById('auth-btn');
+        function checkLoginStatus() { // This function checks if the user is logged in or not
+            const token = localStorage.getItem('token'); //get the token from local storage
+            const authBtn = document.getElementById('auth-btn'); //get the auth button
 
             if (token) {
-                authBtn.textContent = 'Logout';
+                authBtn.textContent = 'Logout'; //if user is logged in button text will be Logout
                 authBtn.onclick = () => {
-                    localStorage.removeItem('token');
-                    window.location.reload();
+                    localStorage.removeItem('token'); //when clicked logout the user
+                    window.location.reload(); //reload
                 };
             } else {
                 authBtn.textContent = 'Login';
-                authBtn.onclick = () => window.location.href = 'login.php';
+                authBtn.onclick = () => window.location.href = 'login.php'; //Redirect to login page
             }
         }
 
-        function filterCourses(searchTerm) {
+        function filterCourses(searchTerm) { // This function filters the courses based on what we search
             const courseItems = document.querySelectorAll('.course-item');
             courseItems.forEach(item => {
                 const link = item.querySelector('.course-link');
@@ -153,14 +158,14 @@
             });
         }
 
-        function renderCourses(courses) {
+        function renderCourses(courses) { // This function renders the courses on the page
             const container = document.getElementById('course-container');
             container.innerHTML = '';
 
             const list = document.createElement('ul');
             list.className = 'course-list';
 
-            courses.forEach(course => {
+            courses.forEach(course => { 
                 const listItem = document.createElement('li');
                 listItem.className = 'course-item';
 
@@ -172,7 +177,7 @@
                 const titleText = `Assimil French Chapter ${course.course_id}`;
                 link.appendChild(document.createTextNode(titleText));
 
-                if (course.status === 1) {
+                if (course.status === 1) { 
                     const freeTag = document.createElement('span');
                     freeTag.className = 'free-tag';
                     freeTag.textContent = 'FREE';
@@ -191,7 +196,7 @@
             container.appendChild(list);
         }
 
-        function showError(message) {
+        function showError(message) { // This function shows an error message on the page
             const container = document.getElementById('course-container');
             container.innerHTML = `
                 <div class="error">
@@ -201,10 +206,10 @@
             `;
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', () => { // Wait for the DOM to load first before executing the script
             checkLoginStatus();
             
-            document.getElementById('search-input').addEventListener('input', function(e) {
+            document.getElementById('search-input').addEventListener('input', function(e) { 
                 const searchTerm = e.target.value.trim().toLowerCase();
                 filterCourses(searchTerm);
             });

@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>Purchase Courses</title>
     <link style="text/css" rel="stylesheet" href="css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script src="./scripts/utils.js"></script>
     <style>
+        
         .purchase-container {
             position: relative;
             max-width: 800px;

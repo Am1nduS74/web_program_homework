@@ -1,24 +1,25 @@
 <?php
 
-header("Content-Type: text/html; charset=UTF-8");
-require __DIR__ . '/../backend/utils/db.php';
+header("Content-Type: text/html; charset=UTF-8"); // Set the content type to HTML with UTF-8 encoding
+require __DIR__ . '/../backend/utils/db.php'; // Include the database connection file
 
 try {
-    $course_id = isset($_GET['course_id']) ? (int) $_GET['course_id'] : 0;
+    $course_id = isset($_GET['course_id']) ? (int) $_GET['course_id'] : 0; // Get the course ID from the URL, if not set default will be 0
 
     // get course content
     global $db;
-    $min_id = $course_id . '.00';
-    $max_id = $course_id . '.99';
+    $min_id = $course_id . '.00'; // Minimum ID for the course content
+    $max_id = $course_id . '.99'; // Maximum ID
 
-    $stmt = $db->prepare("
+    // This prepares thee sql statement to get the course content
+    $stmt = $db->prepare(" 
         SELECT id, french, english 
         FROM contents 
         WHERE CAST(id AS FLOAT) BETWEEN :min AND :max
         ORDER BY CAST(id AS FLOAT)
     ");
 
-    $stmt->execute([':min' => $min_id, ':max' => $max_id]);
+    $stmt->execute([':min' => $min_id, ':max' => $max_id]); 
     $verses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($verses)) {
@@ -47,8 +48,10 @@ if ($next_chapter % 7 == 0) {
 <head>
     <meta charset="UTF-8">
     <title>Chapter <?= $course_id ?> - Assimil French</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link style="text/css" rel="stylesheet" href="css/global.css">
     <link style="text/css" rel="stylesheet" href="css/content.css">
+
     <style> .chapter { margin: 2rem 5rem; } </style>
 </head>
 
@@ -63,7 +66,7 @@ if ($next_chapter % 7 == 0) {
                 <span style="color: #bdc3c7;"><<</span>
             <?php endif; ?>
 
-            <a href="/" style="text-decoration: none; display: block; flex-grow: 1;">
+            <a href="/" style="text-decoration: none; display: block; flex-grow: 1;"> 
                 <h1 style="text-align: center; color: #2c3e50; font-weight: 300; font-size: 60px;margin: 0; cursor: 
                            pointer; transition: color 0.2s ease;"> Assimil French Home</h1>
             </a>
@@ -103,14 +106,14 @@ if ($next_chapter % 7 == 0) {
     <script src="scripts/utils.js"></script>
     <script>
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => { // Wait for the DOM to load first before executing the script
             const courseId = <?= $course_id ?>;
-            const loading = document.getElementById('validation-loading');
+            const loading = document.getElementById('validation-loading'); 
             const contentContainer = document.getElementById('content-body');
             const purchasePrompt = document.getElementById('purchase-prompt');
             const purchaseBtn = document.querySelector('.purchase-btn');
 
-            validatePurchase(courseId)
+            validatePurchase(courseId) // This function check if the course is purchased or not
                     .then(valid => {
                         loading.classList.add('hidden');
                         if (valid) {
@@ -118,8 +121,8 @@ if ($next_chapter % 7 == 0) {
                         } else {
                             purchasePrompt.classList.remove('hidden');
                             const token = localStorage.getItem('token');
-                            page = !token ? 'login.php' : 'purchase.php';
-                            purchaseBtn.onclick = () => window.location.href = page;
+                            page = !token ? 'login.php' : 'purchase.php'; 
+                            purchaseBtn.onclick = () => window.location.href = page; // Redirect to purchase page if not purchased
                         }
                     })
                     .catch(error => {
@@ -129,9 +132,9 @@ if ($next_chapter % 7 == 0) {
     });
 
 
-        async function validatePurchase(courseId) {
+        async function validatePurchase(courseId) { // This function checks if the course is purchased or not
             try {
-                const headers = {'Content-Type': 'application/json'};
+                const headers = {'Content-Type': 'application/json'}; 
                 const token = localStorage.getItem('token');
                 if (token) headers['Authorization'] = `Bearer ${token}`;
                 const response = await fetch('/api/purchase/validate', {

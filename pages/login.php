@@ -2,18 +2,18 @@
 session_start();
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if the form is submitted
+    $action = $_POST['action'] ?? ''; 
 
 
-    $apiMap = [
+    $apiMap = [ 
         'login' => '/api/user/login',
         'register' => '/api/user/register'
     ];
 
-    if (isset($apiMap[$action])) {
+    if (isset($apiMap[$action])) { 
         $postData = [
-            'username' => $_POST['username'],
+            'username' => $_POST['username'], 
             'password' => $_POST['password']
         ];
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $postData['phone'] = $_POST['phone'];
         }
 
-        $ch = curl_init();
+        $ch = curl_init(); 
         curl_setopt_array($ch, [
             CURLOPT_URL => 'http://localhost' . $apiMap[$action],
             CURLOPT_POST => true,
@@ -55,17 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Login / Register</title>
     <link style="text/css" rel="stylesheet" href="css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
         * {
-            box-sizing: border-box;
+            box-sizing: border-box; /* Box model */
+            font-family: 'Poppins', sans-serif;
         }
 
         .auth-container {
-            max-width: 500px;
-            margin: 4rem auto;
+            max-width: 500px; /* Max width for the form */
+            margin: 4rem auto; /* Center the form */
             padding: 2rem 2.5rem;
             background: white;
-            border-radius: 8px;
+            border-radius: 8px; /* Rounded corners */
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
         }
@@ -78,51 +80,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input[type="email"],
         input[type="tel"],
         input[type="password"] {
-            width: 100%;
+            width: 100%; /* Full width */
             padding: 0.8rem 1.2rem;
-            border: 1px solid #bdc3c7;
-            border-radius: 6px;
+            border: 1px solid #bdc3c7; /* Light gray border */
+            border-radius: 6px; /* Rounded corners */
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease; /* Smooth transition for focus effect */
         }
 
         input:focus {
-            border-color: #3498db;
-            outline: none;
+            border-color: #008000; /* Blue border on focus */
+            outline: none; /* Remove default outline */
         }
 
         .terms-group {
-            margin: 2rem 0;
-            padding: 1rem;
-            background: #f8f9fa;
+            margin: 2rem 0; /* Margin for terms group */
+            padding: 1rem;  /* Padding for terms group */
+            background: #f8f9fa;    /* Light gray background */
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: 0.9rem;  /* Font size for terms group */
             color: #7f8c8d;
         }
 
         .tab-controls {
             margin-bottom: 2rem;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #008000;
         }
 
         .tab-controls button {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border: none;
-            background: none;
+            padding: 1rem 2rem; /* Padding for buttons */
+            font-size: 1.1rem;  /* Font size for buttons */      
+            border: none;   /* No border */
+            background: none;   /* No background */
             color: #7f8c8d;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            cursor: pointer;    /* Pointer cursor */
+            transition: all 0.3s ease;  /* Smooth transition for hover effect */
         }
 
         .tab-controls button.active {
-            color: #3498db;
-            border-bottom: 2px solid #3498db;
+            color: #008000; 
+            border-bottom: 2px solid green;
         }
 
         button[type="submit"] {
-            background: #3498db;
-            color: white;
+            background: rgb(36, 148, 79); /* Primary color */
+            color: white;   /* Text color */
             padding: 1rem 2rem;
             border: none;
             border-radius: 4px;
@@ -133,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         button[type="submit"]:hover {
-            background: #2980b9;
+            background: #000000;
         }
 
         .validation-message,
